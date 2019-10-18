@@ -10,7 +10,7 @@ module.exports = {
 
   async store(req, res) {
     const { filename } = req.file;
-    const { dia, descricao, ingredientes} = req.body;
+    const { dia, descricao, ingredientes } = req.body;
     const { user_id } = req.headers;
 
     const user = await User.findById(user_id);

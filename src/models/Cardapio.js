@@ -4,6 +4,7 @@ const CardapioSchema =  new mongoose.Schema({
   thumbnail: String,
   descricao: String,
   ingredientes: String,
+  dia: String,
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
