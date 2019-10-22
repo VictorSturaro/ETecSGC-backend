@@ -1,9 +1,22 @@
+const Soma = require('../models/Soma');
+const Rm = require('../models/Rm');
+
 module.exports = {
-  async show(req, res) {
-    const { user_id } = req.headers;
 
-    const cardapio = await Cardapio.find({ user: user_id });
+  async store(req, res) {
+    const { soma, dia, rm } = req.body;
 
-    return res.json(cardapio);
+    let aluno = await Rm.findOne({ rm });
+    let verifica = await Soma.findOne({ rm });
+    let verificar = await Soma.findOne({ dia });
+
+    if(aluno) {
+      if(!verifica||!verificar) {
+          veri = await Soma.create({soma, dia, rm});
+          return res.json(veri)
+      }else{
+        return res.json("deu n")
+      }
+    }
   }
 };

@@ -13,6 +13,9 @@ const routes = express.Router();
 const upload = multer(uploadConfig);
 
 routes.post('/sessions', SessionController.store);
+
+routes.post('/soma', ContagemController.store);
+
 routes.post('/rm', RmController.store);
 
 routes.get('/cardapios', CardapioController.index);
