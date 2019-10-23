@@ -8,13 +8,17 @@ const CardapioController = require('./controllers/CardapioController');
 const ProfileController = require('./controllers/ProfileController');
 const UpdateController = require('./controllers/UpdateController');
 const ContagemController = require('./controllers/ContagemController');
+const SomaController = require('./controllers/SomaController');
 
 const routes = express.Router();
 const upload = multer(uploadConfig);
 
 routes.post('/sessions', SessionController.store);
 
-routes.post('/soma', ContagemController.store);
+routes.get('/contagem', ContagemController.index);
+routes.post('/contagem', ContagemController.store);
+
+routes.post('/soma', SomaController.store);
 
 routes.post('/rm', RmController.store);
 

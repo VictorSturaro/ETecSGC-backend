@@ -1,22 +1,51 @@
 const Soma = require('../models/Soma');
-const Rm = require('../models/Rm');
+const Contagem = require('../models/Contagem');
 
 module.exports = {
+    async index(req, res) {
+        const { dia } = req.headers
+        
+        const count = await Soma.aggregate(
+            [
+                {
+                  '$match': {
+                    'dia': dia
+                  }
+                }, {
+                  '$group': {
+                    '_id': '$dia', 
+                    'total': {
+                      '$sum': '$soma'
+                    }
+                  }
+                }
+            ]
+        )
 
-  async store(req, res) {
-    const { soma, dia, rm } = req.body;
+        return res.json(count);
+    },
 
-    let aluno = await Rm.findOne({ rm });
-    let verifica = await Soma.findOne({ rm });
-    let verificar = await Soma.findOne({ dia });
+    async store(req, res) {
+      const { dia } = req.body;
 
-    if(aluno) {
-      if(!verifica||!verificar) {
-          veri = await Soma.create({soma, dia, rm});
-          return res.json(veri)
-      }else{
-        return res.json("deu n")
-      }
-    }
-  }
-};
+      const contagem = await Soma.aggregate(
+        [
+            {
+              '$match': {
+                'dia': dia
+              }
+            }, {
+              '$group': {
+                '_id': '$dia', 
+                'total': {
+                  '$sum': '$soma'
+                }
+              }
+            }
+        ]
+      )
+
+      return res.json(contagem);
+    },
+
+  };
